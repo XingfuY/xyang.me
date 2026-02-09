@@ -8,4 +8,21 @@ export default defineConfig({
   server: {
     port: 3001,
   },
+  build: {
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          markdown: [
+            'react-markdown',
+            'remark-gfm',
+            'remark-math',
+            'rehype-katex',
+            'rehype-highlight',
+            'rehype-raw',
+          ],
+        },
+      },
+    },
+  },
 })
