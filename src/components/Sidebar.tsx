@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Menu, X, Home, User, FileText, FolderOpen, PenLine, Search, Tags, HelpCircle, Github, Linkedin, Mail } from 'lucide-react'
+import { Menu, X, Home, User, FileText, FolderOpen, PenLine, Search, Tags, HelpCircle, Github, Linkedin, Globe, Mail } from 'lucide-react'
 
 const navItems = [
   { to: '/', label: 'Home', icon: Home },
@@ -16,6 +16,7 @@ const navItems = [
 const socialLinks = [
   { href: 'https://github.com/XingfuY', icon: Github, label: 'GitHub' },
   { href: 'https://www.linkedin.com/in/xingfu-yang-phd-6b321262/', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'https://transinfer.com', icon: Globe, label: 'TransInfer' },
   { href: 'mailto:xingfu@xyang.me', icon: Mail, label: 'Email' },
 ]
 

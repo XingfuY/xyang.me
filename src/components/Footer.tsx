@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, Globe, Mail } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -13,6 +13,9 @@ export default function Footer() {
           </a>
           <a href="https://www.linkedin.com/in/xingfu-yang-phd-6b321262/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-crimson transition-colors" aria-label="LinkedIn">
             <Linkedin size={16} />
+          </a>
+          <a href="https://transinfer.com" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-crimson transition-colors" aria-label="TransInfer">
+            <Globe size={16} />
           </a>
           <a href="mailto:xingfu@xyang.me" className="text-slate-500 hover:text-crimson transition-colors" aria-label="Email">
             <Mail size={16} />
