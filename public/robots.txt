@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /scripts/
+Disallow: /context/
+
+Sitemap: https://xyang.me/sitemap.xml
