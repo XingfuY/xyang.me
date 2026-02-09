@@ -1,6 +1,6 @@
 # About
 
-I'm **Xingfu Yang**, a Chief Data Scientist based in Los Angeles with a PhD in Chemical Engineering from Colorado School of Mines. My career sits at the intersection of frontier AI research and practical, scalable engineering.
+I'm **Xingfu Yang**, a PhD-trained engineer who swapped particle simulations for 4D parallelism, bringing scientific rigor to the wild world of machine learning. Whether I'm slashing inference latency or building generative data engines, I love crafting systems that are as smart as they are scalable. My career sits at the intersection of frontier AI research and practical, scalable engineering. Let’s build the future—one optimized pipeline at a time. 
 
 At **Lucid Intel**, I lead a team developing core data products — lead acquisition, non-credit underwriting, and high-frequency fraud prevention — leveraging unsupervised and supervised deep learning on 40M+ identities and billions of records. I also co-created a new business division: an advanced aggregated data analytics platform offering managed agency-of-record services.
 
