@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ExternalLink, Github } from 'lucide-react'
+import manifest from '../generated/content-manifest.json'
 
 interface Project {
   slug: string
@@ -8,28 +9,26 @@ interface Project {
   tags: string[]
   repo?: string
   featured?: boolean
+  hasContent?: boolean
 }
 
-const projects: Project[] = [
-  {
-    slug: 'minilm',
-    title: 'MiniLM',
-    description: 'A minimal JAX incarnation of full life cycle modern language model from scratch. Multi-device sharded pretraining of a Mixture-of-Experts foundation model with data and tensor parallelism on TPU Research Cloud.',
-    tags: ['JAX', 'TPU', 'MoE', 'RLHF', 'Distributed Training'],
-    repo: 'XingfuY/MiniLM',
-    featured: true,
-  },
-  {
-    slug: 'relational-learning',
-    title: 'RelationalLearning',
-    description: 'Scaling up GNNs with GraphStore and FeatureStore via Remote Backends. Trained a GraphSAGE model on a 100 million nodes and 1.6 billion edges graph.',
-    tags: ['GNN', 'PyTorch Geometric', 'GraphSAGE', 'Distributed'],
-    repo: 'XingfuY/RelationalLearning',
-    featured: true,
-  },
-]
+const projects: Project[] = manifest.projects as Project[]
 
 export default function ProjectsPage() {
+  if (projects.length === 0) {
+    return (
+      <div className="animate-fade-in">
+        <h1 className="text-4xl font-bold mb-2">
+          <span className="gradient-brand-text">Projects</span>
+        </h1>
+        <p className="text-slate-400 mb-8">Open source work and research projects.</p>
+        <div className="p-8 rounded-xl border border-navy-lighter bg-navy-light/50 text-center">
+          <p className="text-slate-400">No projects yet. Check back soon!</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="animate-fade-in">
       <h1 className="text-4xl font-bold mb-2">

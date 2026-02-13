@@ -7,27 +7,30 @@ import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
 
 interface MarkdownRendererProps {
-  src: string
+  src?: string
+  content?: string
 }
 
-export default function MarkdownRenderer({ src }: MarkdownRendererProps) {
-  const [content, setContent] = useState<string | null>(null)
+export default function MarkdownRenderer({ src, content: rawContent }: MarkdownRendererProps) {
+  const [fetched, setFetched] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (!src || rawContent) return
     fetch(src)
       .then((res) => {
         if (!res.ok) throw new Error(`Failed to load ${src} (${res.status})`)
         return res.text()
       })
-      .then(setContent)
+      .then(setFetched)
       .catch((err) => setError(err.message))
-  }, [src])
+  }, [src, rawContent])
 
   if (error) {
     return <p className="text-danger">Error loading content: {error}</p>
   }
 
+  const content = rawContent ?? fetched
   if (content === null) {
     return <div className="animate-pulse-slow text-slate-500">Loading...</div>
   }

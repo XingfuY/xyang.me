@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Calendar, Tag } from 'lucide-react'
+import manifest from '../generated/content-manifest.json'
 
 interface Post {
   slug: string
@@ -9,18 +10,23 @@ interface Post {
   tags: string[]
 }
 
-// Will be replaced by content manifest
-const posts: Post[] = [
-  {
-    slug: 'hello-world',
-    title: 'Hello World — Launching xyang.me',
-    date: '2026-02-08',
-    description: 'Introducing my portfolio site built with React, Vite, and Tailwind v4. A technical overview of the architecture and content pipeline.',
-    tags: ['meta', 'react', 'vite'],
-  },
-]
+const posts: Post[] = manifest.posts as Post[]
 
 export default function PostsPage() {
+  if (posts.length === 0) {
+    return (
+      <div className="animate-fade-in">
+        <h1 className="text-4xl font-bold mb-2">
+          <span className="gradient-brand-text">Posts</span>
+        </h1>
+        <p className="text-slate-400 mb-8">Technical writing, research notes, and tutorials.</p>
+        <div className="p-8 rounded-xl border border-navy-lighter bg-navy-light/50 text-center">
+          <p className="text-slate-400">No posts yet. Check back soon!</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="animate-fade-in">
       <h1 className="text-4xl font-bold mb-2">

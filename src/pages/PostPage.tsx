@@ -1,8 +1,21 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Calendar, Tag } from 'lucide-react'
+import MarkdownRenderer from '../components/MarkdownRenderer.tsx'
+import manifest from '../generated/content-manifest.json'
+
+interface Post {
+  slug: string
+  title: string
+  date: string
+  description: string
+  tags: string[]
+}
+
+const posts: Post[] = manifest.posts as Post[]
 
 export default function PostPage() {
   const { slug } = useParams<{ slug: string }>()
+  const post = posts.find((p) => p.slug === slug)
 
   return (
     <div className="animate-fade-in max-w-3xl">
@@ -11,18 +24,43 @@ export default function PostPage() {
         Back to Posts
       </Link>
 
-      <h1 className="text-4xl font-bold mb-4">
-        <span className="gradient-brand-text">{slug}</span>
-      </h1>
-
-      <div className="p-8 rounded-xl border border-navy-lighter bg-navy-light/50 text-center">
-        <p className="text-slate-400">
-          Post content will be loaded from the content pipeline.
-        </p>
-        <p className="text-slate-500 text-sm mt-2">
-          Add a markdown file at <code className="text-crimson">content/posts/{slug}.md</code> to populate this page.
-        </p>
-      </div>
+      {post ? (
+        <>
+          <h1 className="text-4xl font-bold mb-3">
+            <span className="gradient-brand-text">{post.title}</span>
+          </h1>
+          <div className="flex items-center gap-4 mb-8 text-sm text-slate-500">
+            <span className="flex items-center gap-1">
+              <Calendar size={14} />
+              {post.date}
+            </span>
+            <span className="flex items-center gap-1">
+              <Tag size={14} />
+              {post.tags.map((tag) => (
+                <Link
+                  key={tag}
+                  to={`/tags/${tag}`}
+                  className="hover:text-crimson transition-colors"
+                >
+                  {tag}
+                </Link>
+              )).reduce<React.ReactNode[]>((acc, el, i) => {
+                if (i > 0) acc.push(', ')
+                acc.push(el)
+                return acc
+              }, [])}
+            </span>
+          </div>
+          <MarkdownRenderer src={`/content/posts/${slug}.md`} />
+        </>
+      ) : (
+        <div className="p-8 rounded-xl border border-navy-lighter bg-navy-light/50 text-center">
+          <p className="text-slate-400">Post not found.</p>
+          <p className="text-slate-500 text-sm mt-2">
+            No post with slug <code className="text-crimson">{slug}</code> exists.
+          </p>
+        </div>
+      )}
     </div>
   )
 }

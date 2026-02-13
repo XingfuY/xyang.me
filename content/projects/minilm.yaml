@@ -1,0 +1,6 @@
+title: MiniLM
+description: A minimal JAX incarnation of full life cycle modern language model from scratch. Multi-device sharded pretraining of a Mixture-of-Experts foundation model with data and tensor parallelism on TPU Research Cloud.
+tags: [JAX, TPU, MoE, RLHF, Distributed Training]
+repo: XingfuY/MiniLM
+featured: true
+order: 1

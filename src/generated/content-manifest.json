@@ -1,5 +1,52 @@
 {
-  "posts": [],
-  "projects": [],
-  "generatedAt": "2026-02-09T07:44:08.958Z"
+  "posts": [
+    {
+      "slug": "hello-world",
+      "file": "content/posts/hello-world.md",
+      "title": "Hello World — Launching xyang.me",
+      "date": "2026-02-08",
+      "description": "Introducing my portfolio site built with React, Vite, and Tailwind v4. A technical overview of the architecture and content pipeline.",
+      "tags": [
+        "meta",
+        "react",
+        "vite"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "slug": "minilm",
+      "file": "content/projects/minilm.yaml",
+      "hasContent": true,
+      "title": "MiniLM",
+      "description": "A minimal JAX incarnation of full life cycle modern language model from scratch. Multi-device sharded pretraining of a Mixture-of-Experts foundation model with data and tensor parallelism on TPU Research Cloud.",
+      "tags": [
+        "JAX",
+        "TPU",
+        "MoE",
+        "RLHF",
+        "Distributed Training"
+      ],
+      "repo": "XingfuY/MiniLM",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "slug": "relational-learning",
+      "file": "content/projects/relational-learning.yaml",
+      "hasContent": true,
+      "title": "RelationalLearning",
+      "description": "Scaling up GNNs with GraphStore and FeatureStore via Remote Backends. Trained a GraphSAGE model on a 100 million nodes and 1.6 billion edges graph.",
+      "tags": [
+        "GNN",
+        "PyTorch Geometric",
+        "GraphSAGE",
+        "Distributed"
+      ],
+      "repo": "XingfuY/RelationalLearning",
+      "featured": true,
+      "order": 2
+    }
+  ],
+  "generatedAt": "2026-02-13T01:23:13.156Z"
 }

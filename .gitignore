@@ -16,6 +16,10 @@ Thumbs.db
 # Sensitive context (entire directory — API keys, resume source, headshots)
 context/
 
+# Generated public content (built from content/ sources)
+public/content/posts/
+public/content/projects/
+
 # Cache
 .cache/
 content/projects/.cache/

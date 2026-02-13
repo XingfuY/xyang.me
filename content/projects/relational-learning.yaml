@@ -1,0 +1,6 @@
+title: RelationalLearning
+description: Scaling up GNNs with GraphStore and FeatureStore via Remote Backends. Trained a GraphSAGE model on a 100 million nodes and 1.6 billion edges graph.
+tags: [GNN, PyTorch Geometric, GraphSAGE, Distributed]
+repo: XingfuY/RelationalLearning
+featured: true
+order: 2
