@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FileDown, Mail, Lock, CheckCircle } from 'lucide-react'
+import { submitLead } from '../lib/submitLead'
 
 export default function CVPage() {
   const [email, setEmail] = useState('')
@@ -11,17 +12,10 @@ export default function CVPage() {
     setLoading(true)
 
     try {
-      // Formspree form submission
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, _subject: 'CV Download Request — xyang.me' }),
-      })
-      if (res.ok) {
-        setSubmitted(true)
-      }
+      await submitLead('cv_leads', { email })
+      setSubmitted(true)
     } catch {
-      // Allow access even if form submission fails
+      // Allow access even if submission fails
       setSubmitted(true)
     } finally {
       setLoading(false)

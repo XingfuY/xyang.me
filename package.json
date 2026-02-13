@@ -12,6 +12,7 @@
     "fetch:projects": "node scripts/fetch-project-readmes.mjs"
   },
   "dependencies": {
+    "firebase": "^12.9.0",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.563.0",

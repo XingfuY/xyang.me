@@ -20,6 +20,9 @@ context/
 public/content/posts/
 public/content/projects/
 
+# Firebase
+firebase-debug.log
+
 # Cache
 .cache/
 content/projects/.cache/
