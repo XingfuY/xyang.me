@@ -5,6 +5,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
+import 'highlight.js/styles/github-dark-dimmed.css'
 
 interface MarkdownRendererProps {
   src?: string
