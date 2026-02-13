@@ -1,0 +1,10 @@
+title: "microgpt-cpp"
+description: "A faithful C++20 incarnation of Karpathy's microgpt — complete autograd, GPT training, and inference in a single header file. Zero dependencies."
+repo: microgpt-cpp
+tags:
+  - c++
+  - autograd
+  - gpt
+  - deep-learning
+featured: true
+order: 1

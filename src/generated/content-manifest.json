@@ -11,9 +11,34 @@
         "react",
         "vite"
       ]
+    },
+    {
+      "slug": "microgpt-cpp",
+      "file": "content/posts/microgpt-cpp.md",
+      "title": "microgpt-cpp: When You Rewrite Karpathy's 200 Lines of Python in C++ Because Why Not",
+      "date": "2025-02-08",
+      "tags": [
+        "c++",
+        "autograd",
+        "gpt",
+        "deep-learning",
+        "karpathy"
+      ],
+      "description": "A faithful C++20 incarnation of Andrej Karpathy's microgpt — the most atomic way to train and run a GPT. No PyTorch. No dependencies. Just vibes and shared pointers."
     }
   ],
   "projects": [
+    {
+      "slug": "microgpt-cpp",
+      "file": "content/projects/microgpt-cpp.yaml",
+      "hasContent": false,
+      "title": "microgpt-cpp",
+      "description": "A faithful C++20 incarnation of Karpathy's microgpt — complete autograd, GPT training, and inference in a single header file. Zero dependencies.",
+      "repo": "microgpt-cpp",
+      "tags": "",
+      "featured": true,
+      "order": 1
+    },
     {
       "slug": "minilm",
       "file": "content/projects/minilm.yaml",
@@ -48,5 +73,5 @@
       "order": 2
     }
   ],
-  "generatedAt": "2026-02-13T01:52:19.101Z"
+  "generatedAt": "2026-02-13T07:02:01.029Z"
 }
