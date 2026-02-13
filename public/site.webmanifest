@@ -1,0 +1,11 @@
+{
+  "name": "Xingfu Yang — Chief Data Scientist",
+  "short_name": "XY",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#0A1628",
+  "background_color": "#0A1628",
+  "display": "standalone"
+}
