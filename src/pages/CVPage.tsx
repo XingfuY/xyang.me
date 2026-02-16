@@ -1,21 +1,50 @@
-import { useState } from 'react'
-import { FileDown, Mail, Lock, CheckCircle } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { FileDown, Mail, Lock, CheckCircle, ShieldCheck, AlertCircle } from 'lucide-react'
 import { submitLead } from '../lib/submitLead'
+
+const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export default function CVPage() {
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
+  const mountTime = useRef(Date.now())
+
+  function validateEmail(value: string) {
+    if (!value) return 'Email is required'
+    if (!EMAIL_RE.test(value)) return 'Please enter a valid email'
+    return ''
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+
+    // Honeypot check — bots fill hidden fields
+    if (honeypot) return
+
+    // Timing check — reject instant submissions (< 2s)
+    if (Date.now() - mountTime.current < 2000) return
+
+    const error = validateEmail(email)
+    if (error) {
+      setEmailError(error)
+      return
+    }
+
+    if (!verified) {
+      setEmailError('Please verify you are human')
+      return
+    }
+
     setLoading(true)
 
     try {
       await submitLead('cv_leads', { email })
       setSubmitted(true)
     } catch {
-      // Allow access even if submission fails
       setSubmitted(true)
     } finally {
       setLoading(false)
@@ -38,25 +67,78 @@ export default function CVPage() {
             Enter your email to download my full resume as PDF and view the rendered version below.
             Your email will only be used for professional networking.
           </p>
-          <form onSubmit={handleSubmit} className="flex gap-3">
-            <div className="flex-1">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                required
-                className="w-full px-4 py-3 rounded-lg bg-navy border border-navy-lighter text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-crimson/50 transition-colors"
-              />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <div className="flex gap-3">
+                <div className="flex-1">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                      if (emailError) setEmailError(validateEmail(e.target.value))
+                    }}
+                    onBlur={() => { if (email) setEmailError(validateEmail(email)) }}
+                    placeholder="you@company.com"
+                    required
+                    className={`w-full px-4 py-3 rounded-lg bg-navy border text-slate-100 placeholder:text-slate-500 focus:outline-none transition-colors ${
+                      emailError
+                        ? 'border-red-500/60 focus:border-red-500'
+                        : 'border-navy-lighter focus:border-crimson/50'
+                    }`}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="gradient-brand px-6 py-3 rounded-lg font-semibold text-white hover:opacity-90 transition-opacity flex items-center gap-2 disabled:opacity-50"
+                >
+                  <Mail size={18} />
+                  {loading ? 'Sending...' : 'Submit'}
+                </button>
+              </div>
+              {emailError && (
+                <p className="mt-2 text-sm text-red-400 flex items-center gap-1.5">
+                  <AlertCircle size={14} />
+                  {emailError}
+                </p>
+              )}
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="gradient-brand px-6 py-3 rounded-lg font-semibold text-white hover:opacity-90 transition-opacity flex items-center gap-2 disabled:opacity-50"
-            >
-              <Mail size={18} />
-              {loading ? 'Sending...' : 'Submit'}
-            </button>
+
+            {/* Human verification checkbox */}
+            <label className="flex items-center gap-3 cursor-pointer group w-fit">
+              <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                verified
+                  ? 'bg-crimson/20 border-crimson'
+                  : 'border-slate-600 group-hover:border-slate-400'
+              }`}>
+                {verified && <ShieldCheck size={14} className="text-crimson" />}
+              </div>
+              <input
+                type="checkbox"
+                checked={verified}
+                onChange={(e) => {
+                  setVerified(e.target.checked)
+                  if (e.target.checked && emailError === 'Please verify you are human') setEmailError('')
+                }}
+                className="sr-only"
+              />
+              <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors select-none">
+                I'm human
+              </span>
+            </label>
+
+            {/* Honeypot — invisible to humans, bots auto-fill */}
+            <input
+              type="text"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none"
+              style={{ position: 'absolute', left: '-9999px' }}
+            />
           </form>
         </div>
       ) : (
