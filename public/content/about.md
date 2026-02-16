@@ -2,7 +2,7 @@
 
 I'm **Xingfu Yang**, a PhD-trained engineer who swapped particle simulations for 4D parallelism, bringing scientific rigor to the wild world of machine learning. Whether I'm slashing inference latency or building generative data engines, I love crafting systems that are as smart as they are scalable. My career sits at the intersection of frontier AI research and practical, scalable engineering. Let’s build the future—one optimized pipeline at a time. 
 
-At **Lucid Intel**, I lead a team developing core data products — lead acquisition, non-credit underwriting, and high-frequency fraud prevention — leveraging unsupervised and supervised deep learning on 40M+ identities and billions of records. I also co-created a new business division: an advanced aggregated data analytics platform offering managed agency-of-record services.
+My industry career spans two FinTech/AdTech startups where I owned the full ML lifecycle end-to-end. As **Chief Data Scientist at Lucid Intel**, I lead a team building core data products — lead acquisition, non-credit underwriting, and high-frequency fraud prevention — applying unsupervised and supervised deep learning across 40M+ identities and billions of records. I also co-created a new business division: an aggregated data analytics platform offering managed agency-of-record services. Earlier, as **Data Scientist at Leap Theory**, I developed, deployed, and maintained production ML/DL APIs for marketing, remarketing, and risk management — delivering a 55% reduction in unnecessary traffic and a 70% lift in accept ratios for lending clients.
 
 ## Philosophy
 
