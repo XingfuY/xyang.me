@@ -13,7 +13,7 @@ const faqs: FAQ[] = [
   },
   {
     question: 'What kind of roles are you interested in?',
-    answer: 'I\'m most interested in frontier AI research and engineering roles at organizations pushing the boundaries of large-scale model training — labs like Anthropic, OpenAI, Google DeepMind, xAI, and similar. I thrive in environments that value both theoretical depth and practical engineering excellence.',
+    answer: 'I\'m drawn to frontier AI research and engineering roles where large-scale model training meets real-world impact — especially interdisciplinary applications where AI intersects with physics, science, and complex systems. I thrive in environments that value both theoretical depth and practical engineering excellence.',
   },
   {
     question: 'What is MiniLM?',
