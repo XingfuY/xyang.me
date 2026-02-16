@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Menu, X, Home, User, FileText, FolderOpen, PenLine, Search, Tags, HelpCircle, Github, Linkedin, Globe, Mail } from 'lucide-react'
+import { Menu, X, Home, User, FileText, FolderOpen, PenLine, Search, Tags, HelpCircle, Github, Linkedin, Mail } from 'lucide-react'
 
 const navItems = [
   { to: '/', label: 'Home', icon: Home },
@@ -16,7 +16,6 @@ const navItems = [
 const socialLinks = [
   { href: 'https://github.com/XingfuY', icon: Github, label: 'GitHub' },
   { href: 'https://www.linkedin.com/in/xingfu-yang-phd-6b321262/', icon: Linkedin, label: 'LinkedIn' },
-  { href: 'https://transinfer.com', icon: Globe, label: 'TransInfer' },
   { href: 'mailto:xingfu@xyang.me', icon: Mail, label: 'Email' },
 ]
 
@@ -55,7 +54,7 @@ export default function Sidebar() {
         <div className="p-6 border-b border-navy-lighter">
           <NavLink to="/" onClick={() => setIsOpen(false)} className="block">
             <h1 className="text-xl font-bold gradient-brand-text">Xingfu Yang</h1>
-            <p className="text-xs text-slate-400 mt-1">Chief Data Scientist</p>
+            <p className="text-xs text-slate-500 mt-1 font-mono tracking-wide">Sr. DS <span className="text-slate-600">|</span> MLE <span className="text-slate-600">|</span> Researcher <span className="text-slate-600">|</span> Builder</p>
           </NavLink>
         </div>
 

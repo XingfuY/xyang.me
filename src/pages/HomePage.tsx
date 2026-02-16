@@ -40,9 +40,6 @@ export default function HomePage() {
 
         {/* Hero text */}
         <div className="max-w-xl">
-          <p className="text-crimson font-mono text-sm mb-4 tracking-wider uppercase">
-            Chief Data Scientist
-          </p>
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="gradient-brand-text">Xingfu Yang</span>
             <span className="text-slate-300">, PhD</span>

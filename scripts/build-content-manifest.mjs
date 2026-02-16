@@ -36,11 +36,28 @@ function parseFrontmatter(content) {
 
 function parseYamlSimple(text) {
   const metadata = {};
-  for (const line of text.split('\n')) {
+  const lines = text.split('\n');
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
     const colonIndex = line.indexOf(':');
-    if (colonIndex === -1) continue;
+    if (colonIndex === -1 || line.match(/^\s/)) { i++; continue; }
+
     const key = line.slice(0, colonIndex).trim();
     let value = line.slice(colonIndex + 1).trim();
+
+    // Check if next lines are block-style array items (  - value)
+    if (value === '' && i + 1 < lines.length && lines[i + 1].match(/^\s+-\s/)) {
+      const items = [];
+      i++;
+      while (i < lines.length && lines[i].match(/^\s+-\s/)) {
+        items.push(lines[i].replace(/^\s+-\s+/, '').replace(/^["']|["']$/g, ''));
+        i++;
+      }
+      metadata[key] = items;
+      continue;
+    }
 
     if (value.startsWith('[') && value.endsWith(']')) {
       value = value.slice(1, -1).split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
@@ -55,6 +72,7 @@ function parseYamlSimple(text) {
     }
 
     metadata[key] = value;
+    i++;
   }
   return metadata;
 }

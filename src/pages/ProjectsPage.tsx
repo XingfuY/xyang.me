@@ -50,7 +50,7 @@ export default function ProjectsPage() {
                 </h2>
                 <p className="text-slate-400 mt-2 text-sm leading-relaxed">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mt-4">
-                  {project.tags.map((tag) => (
+                  {(Array.isArray(project.tags) ? project.tags : []).map((tag) => (
                     <span key={tag} className="px-2 py-0.5 rounded text-xs bg-navy-lighter text-slate-300">
                       {tag}
                     </span>
