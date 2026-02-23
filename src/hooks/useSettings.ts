@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 
 type ThemeMode = 'dark' | 'light' | 'auto'
 
@@ -12,8 +12,10 @@ interface Settings {
 
 const THEME_KEY = 'xyang-theme'
 const RAIN_KEY = 'xyang-rain-paused'
-const GEO_KEY = 'xyang-geo-cache'
-const GEO_TTL = 6 * 60 * 60 * 1000 // 6 hours
+
+// Hardcoded to Los Angeles (Pacific Time) — avoids browser geolocation popup
+const DEFAULT_LAT = 34.05
+const DEFAULT_LNG = -118.24
 
 // Simplified NOAA sunrise/sunset algorithm
 function getSunTimes(lat: number, lng: number, date: Date): { sunrise: Date; sunset: Date } {
@@ -55,18 +57,6 @@ function isDaytime(lat: number, lng: number): boolean {
   return now >= sunrise && now <= sunset
 }
 
-function getCachedGeo(): { lat: number; lng: number } | null {
-  try {
-    const raw = localStorage.getItem(GEO_KEY)
-    if (!raw) return null
-    const { lat, lng, ts } = JSON.parse(raw)
-    if (Date.now() - ts > GEO_TTL) return null
-    return { lat, lng }
-  } catch {
-    return null
-  }
-}
-
 export function useSettings(): Settings {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     const stored = localStorage.getItem(THEME_KEY)
@@ -77,43 +67,8 @@ export function useSettings(): Settings {
     return localStorage.getItem(RAIN_KEY) === 'true'
   })
 
-  const [geo, setGeo] = useState<{ lat: number; lng: number } | null>(getCachedGeo)
-
-  // Track OS preference as reactive state
-  const [prefersDark, setPrefersDark] = useState(() =>
-    window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true
-  )
-
   // Tick counter to re-evaluate sunrise/sunset periodically
   const [tick, setTick] = useState(0)
-
-  // Request geolocation once
-  const geoRequested = useRef(false)
-  useEffect(() => {
-    if (geoRequested.current) return
-    geoRequested.current = true
-
-    if (getCachedGeo()) return
-
-    navigator.geolocation?.getCurrentPosition(
-      (pos) => {
-        const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude }
-        localStorage.setItem(GEO_KEY, JSON.stringify({ ...coords, ts: Date.now() }))
-        setGeo(coords)
-      },
-      () => { /* denied or unavailable — rely on matchMedia */ },
-      { timeout: 5000, maximumAge: GEO_TTL }
-    )
-  }, [])
-
-  // Listen for OS preference changes
-  useEffect(() => {
-    const mq = window.matchMedia?.('(prefers-color-scheme: dark)')
-    if (!mq) return
-    const handler = (e: MediaQueryListEvent) => setPrefersDark(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
 
   // Re-evaluate every 60s in case sun sets/rises during session
   useEffect(() => {
@@ -126,9 +81,8 @@ export function useSettings(): Settings {
     // tick forces periodic re-evaluation for sunrise/sunset
     void tick
     if (themeMode !== 'auto') return themeMode
-    if (geo) return isDaytime(geo.lat, geo.lng) ? 'light' : 'dark'
-    return prefersDark ? 'dark' : 'light'
-  }, [themeMode, geo, prefersDark, tick])
+    return isDaytime(DEFAULT_LAT, DEFAULT_LNG) ? 'light' : 'dark'
+  }, [themeMode, tick])
 
   // Apply class + meta theme-color (side-effect on DOM, not state)
   useEffect(() => {
