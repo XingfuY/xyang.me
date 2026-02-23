@@ -59,6 +59,8 @@ function isDaytime(lat: number, lng: number): boolean {
 
 export function useSettings(): Settings {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+    // Clean up legacy geo cache from previous geolocation-based auto mode
+    localStorage.removeItem('xyang-geo-cache')
     const stored = localStorage.getItem(THEME_KEY)
     return (stored === 'dark' || stored === 'light' || stored === 'auto') ? stored : 'auto'
   })
