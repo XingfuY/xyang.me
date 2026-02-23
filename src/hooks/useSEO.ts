@@ -5,6 +5,7 @@ interface SEOProps {
   description: string
   path: string
   type?: string
+  noindex?: boolean
   jsonLd?: object
 }
 
@@ -32,13 +33,16 @@ function findOrCreate<K extends keyof HTMLElementTagNameMap>(
   return el
 }
 
-export function useSEO({ title, description, path, type = 'website', jsonLd }: SEOProps) {
+export function useSEO({ title, description, path, type = 'website', noindex = false, jsonLd }: SEOProps) {
   useEffect(() => {
     const fullTitle = title === DEFAULT_TITLE ? title : title + SUFFIX
     const url = SITE + path
 
     document.title = fullTitle
     setMeta('name', 'description', description)
+
+    const robots = findOrCreate<'meta'>('meta[name="robots"]', 'meta', { name: 'robots' })
+    robots.setAttribute('content', noindex ? 'noindex, nofollow' : 'index, follow')
     setMeta('property', 'og:title', fullTitle)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', url)
@@ -66,7 +70,9 @@ export function useSEO({ title, description, path, type = 'website', jsonLd }: S
       setMeta('name', 'twitter:description', DEFAULT_DESC)
       const c = document.querySelector('link[rel="canonical"]')
       if (c) c.setAttribute('href', SITE + '/')
+      const r = document.querySelector('meta[name="robots"]')
+      if (r) r.setAttribute('content', 'index, follow')
       if (scriptEl) { scriptEl.remove(); scriptEl = null }
     }
-  }, [title, description, path, type, jsonLd])
+  }, [title, description, path, type, noindex, jsonLd])
 }

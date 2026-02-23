@@ -34,11 +34,22 @@ const faqs: FAQ[] = [
   },
 ]
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+}
+
 export default function FAQPage() {
   useSEO({
     title: 'FAQ',
     description: 'Frequently asked questions about Xingfu Yang — technical focus, roles, MiniLM, scaling deep learning, and education.',
     path: '/faq',
+    jsonLd: faqJsonLd,
   })
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)

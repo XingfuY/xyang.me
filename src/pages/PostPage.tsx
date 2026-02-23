@@ -18,11 +18,22 @@ export default function PostPage() {
   const { slug } = useParams<{ slug: string }>()
   const post = posts.find((p) => p.slug === slug)
 
+  const jsonLd = post ? {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: { '@type': 'Person', name: 'Xingfu Yang', url: 'https://xyang.me' },
+    url: `https://xyang.me/posts/${slug}`,
+  } : undefined
+
   useSEO({
     title: post?.title ?? 'Post Not Found',
     description: post?.description ?? 'Blog post on xyang.me.',
     path: `/posts/${slug}`,
     type: 'article',
+    jsonLd,
   })
 
   return (

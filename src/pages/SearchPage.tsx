@@ -33,6 +33,7 @@ export default function SearchPage() {
     title: 'Search',
     description: 'Search posts, projects, and topics on xyang.me.',
     path: '/search',
+    noindex: true,
   })
 
   const [searchParams, setSearchParams] = useSearchParams()
