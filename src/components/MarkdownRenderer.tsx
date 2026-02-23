@@ -6,6 +6,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
 import 'highlight.js/styles/github-dark-dimmed.css'
+import 'katex/dist/katex.min.css'
 
 interface MarkdownRendererProps {
   src?: string
