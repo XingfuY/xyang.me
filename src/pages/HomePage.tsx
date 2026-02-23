@@ -1,6 +1,8 @@
+import { useMemo } from 'react'
 import { ArrowRight, Cpu, Brain, Network, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import TechGlobe from '../components/TechGlobe.tsx'
+import { useSEO } from '../hooks/useSEO'
 
 const highlights = [
   {
@@ -26,6 +28,25 @@ const highlights = [
 ]
 
 export default function HomePage() {
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Xingfu Yang',
+    url: 'https://xyang.me',
+    jobTitle: 'Chief Data Scientist',
+    sameAs: [
+      'https://github.com/XingfuY',
+      'https://www.linkedin.com/in/xingfu-yang-phd-6b321262/',
+    ],
+  }), [])
+
+  useSEO({
+    title: 'Xingfu Yang — Hardware-Aware AI Researcher',
+    description: 'Hardware-aware AI engineer building frontier deep learning systems — JAX, CUDA, Triton, distributed training, and full-stack ML.',
+    path: '/',
+    jsonLd,
+  })
+
   return (
     <div className="animate-fade-in">
       {/* Hero section with globe positioned top-right */}

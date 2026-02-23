@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ExternalLink, Github } from 'lucide-react'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Project {
   slug: string
@@ -15,6 +16,12 @@ interface Project {
 const projects: Project[] = manifest.projects as Project[]
 
 export default function ProjectsPage() {
+  useSEO({
+    title: 'Projects',
+    description: 'Open source research projects by Xingfu Yang — JAX language models, GNNs, medical imaging, and more.',
+    path: '/projects',
+  })
+
   if (projects.length === 0) {
     return (
       <div className="animate-fade-in">

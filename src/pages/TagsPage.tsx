@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { Tag, Calendar, ArrowLeft } from 'lucide-react'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Post {
   slug: string
@@ -42,6 +43,14 @@ const allTags = collectTags()
 
 export default function TagsPage() {
   const { tag } = useParams<{ tag: string }>()
+
+  useSEO({
+    title: tag ? `#${tag}` : 'Tags',
+    description: tag
+      ? `Content tagged with "${tag}" on xyang.me.`
+      : 'Browse all content tags on xyang.me — topics in AI, deep learning, and systems engineering.',
+    path: tag ? `/tags/${tag}` : '/tags',
+  })
 
   if (tag) {
     const matchingPosts = posts.filter((p) => p.tags?.includes(tag))

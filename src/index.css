@@ -137,3 +137,53 @@ body {
 
 /* Highlight.js theme override for dark mode */
 .hljs { background: var(--color-navy-light) !important; }
+
+/* ── Light mode overrides ── */
+html.light {
+  color-scheme: light;
+
+  --color-navy: #F8FAFC;
+  --color-navy-light: #FFFFFF;
+  --color-navy-lighter: #E2E8F0;
+
+  /* Invert slate scale so text-slate-300 (body text) becomes dark-on-light */
+  --color-slate-50: #1E293B;
+  --color-slate-100: #334155;
+  --color-slate-200: #475569;
+  --color-slate-300: #475569;
+  --color-slate-400: #64748B;
+  --color-slate-500: #94A3B8;
+  --color-slate-600: #CBD5E1;
+}
+
+/* Explicit property overrides — belt-and-suspenders for dev-server cascade */
+html.light body {
+  background-color: #F8FAFC;
+  color: #334155;
+}
+
+html.light .prose-content a { color: #1E88E5; }
+html.light .prose-content a:hover { color: #E91E63; }
+html.light .prose-content blockquote { color: #475569; }
+html.light .prose-content code { background: #E2E8F0; }
+html.light .prose-content pre { background: #FFFFFF; }
+html.light .prose-content th { background: #FFFFFF; }
+html.light .prose-content th,
+html.light .prose-content td { border-color: #E2E8F0; }
+
+/* Sidebar & control panel: override Tailwind's static hex fallbacks for /opacity utilities */
+html.light aside { background-color: rgba(255, 255, 255, 0.95) !important; border-color: #E2E8F0 !important; }
+html.light aside .border-navy-lighter { border-color: #E2E8F0; }
+
+/* Scrollbar */
+html.light ::-webkit-scrollbar-track { background: #F8FAFC; }
+html.light ::-webkit-scrollbar-thumb { background: #E2E8F0; }
+html.light ::-webkit-scrollbar-thumb:hover { background: #CBD5E1; }
+
+html.light .hljs { background: #F6F8FA !important; color: #24292F !important; }
+html.light .hljs-keyword { color: #CF222E; }
+html.light .hljs-string { color: #0A3069; }
+html.light .hljs-comment { color: #6E7781; }
+html.light .hljs-number { color: #0550AE; }
+html.light .hljs-title { color: #8250DF; }
+html.light .hljs-built_in { color: #0550AE; }

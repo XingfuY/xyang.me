@@ -2,8 +2,10 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import MatrixBackground from './components/MatrixBackground.tsx'
 import Sidebar from './components/Sidebar.tsx'
+import ControlPanel from './components/ControlPanel.tsx'
 import Footer from './components/Footer.tsx'
 import ScrollToTop from './components/ScrollToTop.tsx'
+import { useSettings } from './hooks/useSettings.ts'
 import HomePage from './pages/HomePage.tsx'
 
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx'))
@@ -21,9 +23,17 @@ function PageLoader() {
 }
 
 export default function App() {
+  const { themeMode, resolvedTheme, rainPaused, cycleTheme, toggleRain } = useSettings()
+
   return (
     <>
-      <MatrixBackground />
+      <MatrixBackground paused={rainPaused} lightMode={resolvedTheme === 'light'} />
+      <ControlPanel
+        themeMode={themeMode}
+        rainPaused={rainPaused}
+        onCycleTheme={cycleTheme}
+        onToggleRain={toggleRain}
+      />
       <Sidebar />
       <ScrollToTop />
 

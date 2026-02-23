@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Calendar, Tag } from 'lucide-react'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Post {
   slug: string
@@ -13,6 +14,12 @@ interface Post {
 const posts: Post[] = manifest.posts as Post[]
 
 export default function PostsPage() {
+  useSEO({
+    title: 'Posts',
+    description: 'Technical writing, research notes, and tutorials by Xingfu Yang on deep learning, JAX, and AI systems.',
+    path: '/posts',
+  })
+
   if (posts.length === 0) {
     return (
       <div className="animate-fade-in">

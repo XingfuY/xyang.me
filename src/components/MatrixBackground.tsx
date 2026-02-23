@@ -1,9 +1,34 @@
 import { useEffect, useRef } from 'react'
 
-export default function MatrixBackground() {
+interface Props {
+  paused?: boolean
+  lightMode?: boolean
+}
+
+export default function MatrixBackground({ paused = false, lightMode = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: -1, y: -1 })
+  const pausedRef = useRef(paused)
+  const lightRef = useRef(lightMode)
+  const animIdRef = useRef<number>(0)
+  const drawRef = useRef<(() => void) | null>(null)
 
+  // Keep refs in sync without re-running the main effect
+  useEffect(() => { pausedRef.current = paused }, [paused])
+  useEffect(() => {
+    lightRef.current = lightMode
+    // Clear canvas on theme change to prevent residual overlay from previous mode
+    const canvas = canvasRef.current
+    if (canvas) {
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        ctx.fillStyle = lightMode ? 'rgba(248, 250, 252, 1)' : 'rgba(10, 22, 40, 1)'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+    }
+  }, [lightMode])
+
+  // Main animation effect — runs once
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -11,7 +36,6 @@ export default function MatrixBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let animationId: number
     let columns: number[] = []
 
     const chars = '01アイウエオカキクケコ∑∏∫∂√∞≈≠±∈∉⊂⊃∪∩'
@@ -34,7 +58,14 @@ export default function MatrixBackground() {
     }
 
     function draw() {
-      ctx!.fillStyle = 'rgba(10, 22, 40, 0.05)'
+      if (pausedRef.current) {
+        animIdRef.current = 0
+        return
+      }
+
+      const isLight = lightRef.current
+      const fadeColor = isLight ? 'rgba(248, 250, 252, 0.05)' : 'rgba(10, 22, 40, 0.05)'
+      ctx!.fillStyle = fadeColor
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
 
       const mx = mouseRef.current.x
@@ -54,7 +85,9 @@ export default function MatrixBackground() {
         let r = Math.floor(233 * (1 - progress) + 21 * progress)
         let g = Math.floor(30 * (1 - progress) + 101 * progress)
         let b = Math.floor(99 * (1 - progress) + 192 * progress)
-        let alpha = 0.15 + Math.random() * 0.15
+        let alpha = isLight
+          ? 0.20 + Math.random() * 0.20
+          : 0.15 + Math.random() * 0.15
 
         if (nearMouse) {
           const intensity = 1 - dist / mouseRadius
@@ -85,8 +118,10 @@ export default function MatrixBackground() {
         columns[i] += 0.5 + Math.random() * 0.5 + speedBoost
       }
 
-      animationId = requestAnimationFrame(draw)
+      animIdRef.current = requestAnimationFrame(draw)
     }
+
+    drawRef.current = draw
 
     resize()
     draw()
@@ -95,12 +130,19 @@ export default function MatrixBackground() {
     window.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      cancelAnimationFrame(animationId)
+      cancelAnimationFrame(animIdRef.current)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [])
+
+  // Resume animation when unpaused
+  useEffect(() => {
+    if (!paused && animIdRef.current === 0 && drawRef.current) {
+      animIdRef.current = requestAnimationFrame(drawRef.current)
+    }
+  }, [paused])
 
   return (
     <canvas

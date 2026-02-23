@@ -160,6 +160,43 @@ const manifest = {
 mkdirSync(OUTPUT_DIR, { recursive: true });
 writeFileSync(OUTPUT_FILE, JSON.stringify(manifest, null, 2));
 
+// Generate sitemap.xml
+function generateSitemap(posts, projects) {
+  const SITE = 'https://xyang.me';
+  const today = new Date().toISOString().slice(0, 10);
+
+  const staticPages = [
+    { path: '/', priority: '1.0', changefreq: 'weekly' },
+    { path: '/about', priority: '0.8', changefreq: 'monthly' },
+    { path: '/cv', priority: '0.7', changefreq: 'monthly' },
+    { path: '/projects', priority: '0.8', changefreq: 'weekly' },
+    { path: '/posts', priority: '0.8', changefreq: 'weekly' },
+    { path: '/faq', priority: '0.5', changefreq: 'monthly' },
+    { path: '/tags', priority: '0.5', changefreq: 'weekly' },
+    { path: '/search', priority: '0.3', changefreq: 'monthly' },
+  ];
+
+  const urls = staticPages.map(({ path, priority, changefreq }) =>
+    `  <url>\n    <loc>${SITE}${path}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`
+  );
+
+  for (const post of posts) {
+    const lastmod = post.date || today;
+    urls.push(`  <url>\n    <loc>${SITE}/posts/${post.slug}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`);
+  }
+
+  for (const project of projects) {
+    urls.push(`  <url>\n    <loc>${SITE}/projects/${project.slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`);
+  }
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  const sitemapPath = join(ROOT, 'public', 'sitemap.xml');
+  writeFileSync(sitemapPath, xml);
+  console.log(`  Sitemap: ${sitemapPath} (${urls.length} URLs)`);
+}
+
+generateSitemap(manifestPosts, manifestProjects);
+
 console.log(`Content manifest built:`);
 console.log(`  Posts: ${posts.length}`);
 console.log(`  Projects: ${projects.length}`);

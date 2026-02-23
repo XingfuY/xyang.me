@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Github } from 'lucide-react'
 import MarkdownRenderer from '../components/MarkdownRenderer.tsx'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Project {
   slug: string
@@ -18,6 +19,12 @@ const projects: Project[] = manifest.projects as Project[]
 export default function ProjectPage() {
   const { slug } = useParams<{ slug: string }>()
   const project = projects.find((p) => p.slug === slug)
+
+  useSEO({
+    title: project?.title ?? 'Project Not Found',
+    description: project?.description ?? 'Project page on xyang.me.',
+    path: `/projects/${slug}`,
+  })
 
   return (
     <div className="animate-fade-in max-w-3xl">

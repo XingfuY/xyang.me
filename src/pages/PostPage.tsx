@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Tag } from 'lucide-react'
 import MarkdownRenderer from '../components/MarkdownRenderer.tsx'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Post {
   slug: string
@@ -16,6 +17,13 @@ const posts: Post[] = manifest.posts as Post[]
 export default function PostPage() {
   const { slug } = useParams<{ slug: string }>()
   const post = posts.find((p) => p.slug === slug)
+
+  useSEO({
+    title: post?.title ?? 'Post Not Found',
+    description: post?.description ?? 'Blog post on xyang.me.',
+    path: `/posts/${slug}`,
+    type: 'article',
+  })
 
   return (
     <div className="animate-fade-in max-w-3xl">

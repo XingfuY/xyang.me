@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { Search, Calendar, FileText, FolderGit2 } from 'lucide-react'
 import manifest from '../generated/content-manifest.json'
+import { useSEO } from '../hooks/useSEO'
 
 interface Post {
   slug: string
@@ -28,6 +29,12 @@ function matchesQuery(query: string, ...fields: string[]): boolean {
 }
 
 export default function SearchPage() {
+  useSEO({
+    title: 'Search',
+    description: 'Search posts, projects, and topics on xyang.me.',
+    path: '/search',
+  })
+
   const [searchParams, setSearchParams] = useSearchParams()
   const activeQuery = searchParams.get('q') || ''
   const [inputValue, setInputValue] = useState(activeQuery)

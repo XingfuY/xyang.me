@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { useSEO } from '../hooks/useSEO'
 
 interface FAQ {
   question: string
@@ -34,6 +35,12 @@ const faqs: FAQ[] = [
 ]
 
 export default function FAQPage() {
+  useSEO({
+    title: 'FAQ',
+    description: 'Frequently asked questions about Xingfu Yang — technical focus, roles, MiniLM, scaling deep learning, and education.',
+    path: '/faq',
+  })
+
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (

@@ -1,10 +1,17 @@
 import { useState, useRef } from 'react'
 import { FileDown, Mail, Lock, CheckCircle, ShieldCheck, AlertCircle } from 'lucide-react'
 import { submitLead } from '../lib/submitLead'
+import { useSEO } from '../hooks/useSEO'
 
 const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export default function CVPage() {
+  useSEO({
+    title: 'CV',
+    description: 'Curriculum vitae of Xingfu Yang — work experience, independent projects, and technical expertise in AI/ML.',
+    path: '/cv',
+  })
+
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [submitted, setSubmitted] = useState(false)
