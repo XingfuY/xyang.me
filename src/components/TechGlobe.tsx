@@ -1,5 +1,6 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import manifest from '../generated/content-manifest.json'
 
 const KEYWORDS = [
   'JAX',
@@ -41,6 +42,13 @@ interface ProjectedPoint {
   scale: number
 }
 
+function toTitleCase(tag: string): string {
+  return tag
+    .split(/[-\s]+/)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+}
+
 export default function TechGlobe() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mouseRef = useRef({ x: 0, y: 0, active: false })
@@ -49,9 +57,30 @@ export default function TechGlobe() {
   const clickRef = useRef({ startX: 0, startY: 0 })
   const navigate = useNavigate()
 
+  const mergedKeywords = useMemo(() => {
+    const normalize = (s: string) => s.toLowerCase().replace(/-/g, ' ')
+    const staticNormalized = new Set(KEYWORDS.map(normalize))
+
+    const allTags = new Set<string>()
+    for (const post of manifest.posts) {
+      for (const tag of post.tags ?? []) allTags.add(tag)
+    }
+    for (const project of manifest.projects) {
+      for (const tag of project.tags ?? []) allTags.add(tag)
+    }
+
+    const merged = [...KEYWORDS]
+    for (const tag of allTags) {
+      if (!staticNormalized.has(normalize(tag))) {
+        merged.push(toTitleCase(tag))
+      }
+    }
+    return merged
+  }, [])
+
   const initPoints = useCallback((): Point3D[] => {
     const pts: Point3D[] = []
-    const n = KEYWORDS.length
+    const n = mergedKeywords.length
     const goldenAngle = Math.PI * (3 - Math.sqrt(5))
     for (let i = 0; i < n; i++) {
       const y = 1 - (i / (n - 1)) * 2
@@ -61,11 +90,11 @@ export default function TechGlobe() {
         x: Math.cos(theta) * radiusAtY,
         y,
         z: Math.sin(theta) * radiusAtY,
-        text: KEYWORDS[i],
+        text: mergedKeywords[i],
       })
     }
     return pts
-  }, [])
+  }, [mergedKeywords])
 
   useEffect(() => {
     const canvas = canvasRef.current
