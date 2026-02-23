@@ -1,0 +1,13 @@
+title: Deep Learning for 3D Medical Imaging
+description: "A pedagogical tutorial series: from DICOM/NIfTI handling and OSEM reconstruction to conditional GANs and diffusion models for PET/SPECT. Built for ML engineers with no medical physics background."
+repo: XingfuY/Deep_Learning_Medical_Image
+tags:
+  - medical-imaging
+  - PET
+  - SPECT
+  - OSEM
+  - GAN
+  - diffusion
+  - MONAI
+featured: true
+order: 0

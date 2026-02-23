@@ -1,6 +1,82 @@
 {
   "posts": [
     {
+      "slug": "medical-ai-validation",
+      "file": "content/posts/medical-ai-validation.md",
+      "title": "Medical AI Validation: Beyond AUC",
+      "date": "2026-02-26",
+      "tags": [
+        "medical-imaging",
+        "statistics",
+        "validation",
+        "NRI",
+        "IDI",
+        "C-statistic",
+        "XGBoost"
+      ],
+      "description": "Why AUC isn't enough for clinical AI: the C-statistic, NRI, IDI, calibration curves, Brier scores, and reclassification tables — the metrics that actually matter for getting your model into the hospital."
+    },
+    {
+      "slug": "diffusion-medical-recon",
+      "file": "content/posts/diffusion-medical-recon.md",
+      "title": "Diffusion Models Meet Medical Reconstruction",
+      "date": "2026-02-25",
+      "tags": [
+        "medical-imaging",
+        "diffusion",
+        "DDPM",
+        "PET",
+        "reconstruction",
+        "deep-learning"
+      ],
+      "description": "How denoising diffusion probabilistic models solve the PET reconstruction problem — from DDPM fundamentals to measurement-conditioned generation and why diffusion might beat both OSEM and GANs."
+    },
+    {
+      "slug": "conditional-gan-medical",
+      "file": "content/posts/conditional-gan-medical.md",
+      "title": "GANs in the Hospital: Conditional Adversarial Networks for SPECT",
+      "date": "2026-02-24",
+      "tags": [
+        "medical-imaging",
+        "GAN",
+        "cGAN",
+        "SPECT",
+        "deep-learning",
+        "attenuation-correction"
+      ],
+      "description": "How conditional GANs solve the attenuation correction problem in SPECT imaging — from the clinical motivation to U-Net generators, PatchGAN discriminators, and why adversarial loss beats L1 alone."
+    },
+    {
+      "slug": "osem-reconstruction",
+      "file": "content/posts/osem-reconstruction.md",
+      "title": "Reconstructing Reality: OSEM and the Math of PET Imaging",
+      "date": "2026-02-23",
+      "tags": [
+        "medical-imaging",
+        "OSEM",
+        "MLEM",
+        "reconstruction",
+        "PET",
+        "tutorial"
+      ],
+      "description": "From raw detector data to 3D images: the inverse problem of PET reconstruction, MLEM derivation, OSEM acceleration, and why every clinical PET scan you've seen was made with this algorithm."
+    },
+    {
+      "slug": "dl-medical-imaging-intro",
+      "file": "content/posts/dl-medical-imaging-intro.md",
+      "title": "The DL Engineer's Field Guide to 3D Medical Imaging",
+      "date": "2026-02-22",
+      "tags": [
+        "medical-imaging",
+        "PET",
+        "SPECT",
+        "DICOM",
+        "NIfTI",
+        "tutorial"
+      ],
+      "description": "A crash course in 3D medical imaging for ML engineers: PET/SPECT physics, DICOM vs NIfTI, coordinate systems, and Python code to work with real clinical data."
+    },
+    {
       "slug": "hello-world",
       "file": "content/posts/hello-world.md",
       "title": "Hello World — Launching xyang.me",
@@ -76,7 +152,26 @@
       "repo": "XingfuY/RelationalLearning",
       "featured": true,
       "order": 2
+    },
+    {
+      "slug": "deep-learning-medical-image",
+      "file": "content/projects/deep-learning-medical-image.yaml",
+      "hasContent": true,
+      "title": "Deep Learning for 3D Medical Imaging",
+      "description": "A pedagogical tutorial series: from DICOM/NIfTI handling and OSEM reconstruction to conditional GANs and diffusion models for PET/SPECT. Built for ML engineers with no medical physics background.",
+      "repo": "XingfuY/Deep_Learning_Medical_Image",
+      "tags": [
+        "medical-imaging",
+        "PET",
+        "SPECT",
+        "OSEM",
+        "GAN",
+        "diffusion",
+        "MONAI"
+      ],
+      "featured": true,
+      "order": 0
     }
   ],
-  "generatedAt": "2026-02-16T05:44:33.745Z"
+  "generatedAt": "2026-02-23T02:35:05.891Z"
 }
