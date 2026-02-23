@@ -46,3 +46,17 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Ping IndexNow (Bing, Yandex)
+        if: success()
+        run: |
+          URLS=$(grep -oP '(?<=<loc>)[^<]+' dist/sitemap.xml)
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"host\": \"xyang.me\",
+              \"key\": \"cc6d28af67b8159d8900bbf8a44088b0\",
+              \"keyLocation\": \"https://xyang.me/cc6d28af67b8159d8900bbf8a44088b0.txt\",
+              \"urlList\": [$(echo "$URLS" | sed 's/.*/"&"/' | paste -sd,)]
+            }"
+          echo "IndexNow pinged with $(echo "$URLS" | wc -l | tr -d ' ') URLs"
