@@ -455,3 +455,13 @@ The full implementation — data loading, model architecture, training loop, eva
 **What's next?** If GANs can solve paired image-to-image translation, diffusion models can solve *unpaired* translation — and they're starting to outperform GANs on image quality metrics while being easier to train. The next post will cover denoising diffusion probabilistic models (DDPMs) for medical imaging: why the score-matching framework is a natural fit for noisy clinical data, and how conditional diffusion sidesteps the mode collapse and training instability that make GANs finicky.
 
 Until then — go read that notebook, train a generator, and watch a discriminator learn what a real AC image looks like. It's one of those things that feels like magic the first time the adversarial loss kicks in and the output snaps into focus.
+
+---
+
+## Deep Learning for Medical Imaging — Full Series
+
+1. [The DL Engineer's Field Guide to 3D Medical Imaging](/posts/dl-medical-imaging-intro)
+2. [Reconstructing Reality: OSEM and the Math of PET Imaging](/posts/osem-reconstruction)
+3. **GANs in the Hospital: Conditional Adversarial Networks for SPECT**
+4. [Diffusion Models Meet Medical Reconstruction](/posts/diffusion-medical-recon)
+5. [Medical AI Validation: Beyond AUC](/posts/medical-ai-validation)

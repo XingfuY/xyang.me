@@ -434,3 +434,13 @@ The notebook walks through:
 If you've followed along with the rest of the [Deep Learning for Medical Imaging](https://github.com/XingfuY/Deep_Learning_Medical_Image) series, this builds directly on the reconstruction concepts from Notebooks I-III. If not, the notebook is self-contained — you'll just appreciate the OSEM comparisons more if you've implemented OSEM yourself first.
 
 The field is moving fast. But the math is stable, the ideas are clean, and there's never been a better time to get your hands dirty with generative models for inverse problems. Grab the notebook, tweak the parameters, break things, fix them. That's how you build intuition that papers can't give you.
+
+---
+
+## Deep Learning for Medical Imaging — Full Series
+
+1. [The DL Engineer's Field Guide to 3D Medical Imaging](/posts/dl-medical-imaging-intro)
+2. [Reconstructing Reality: OSEM and the Math of PET Imaging](/posts/osem-reconstruction)
+3. [GANs in the Hospital: Conditional Adversarial Networks for SPECT](/posts/conditional-gan-medical)
+4. **Diffusion Models Meet Medical Reconstruction**
+5. [Medical AI Validation: Beyond AUC](/posts/medical-ai-validation)

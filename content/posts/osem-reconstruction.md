@@ -574,3 +574,13 @@ If you want to get hands-on with this material, I've put together Jupyter notebo
 - [**Notebook III-a: OSEM Reconstruction**](https://github.com/XingfuY/Deep_Learning_Medical_Image/blob/main/notebooks/03a_osem_reconstruction.ipynb) — full OSEM implementation with attenuation correction, convergence analysis, and comparison to FBP.
 
 Clone the repo. Run the cells. Break things. That's how you learn reconstruction — not by reading about it, but by watching the algorithm iterate and seeing the image emerge from noise, one subset at a time.
+
+---
+
+## Deep Learning for Medical Imaging — Full Series
+
+1. [The DL Engineer's Field Guide to 3D Medical Imaging](/posts/dl-medical-imaging-intro)
+2. **Reconstructing Reality: OSEM and the Math of PET Imaging**
+3. [GANs in the Hospital: Conditional Adversarial Networks for SPECT](/posts/conditional-gan-medical)
+4. [Diffusion Models Meet Medical Reconstruction](/posts/diffusion-medical-recon)
+5. [Medical AI Validation: Beyond AUC](/posts/medical-ai-validation)

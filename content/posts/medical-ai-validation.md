@@ -639,3 +639,13 @@ The metrics in this post are motivated by the work we do in the Slomka lab, wher
 ---
 
 The next time your PI asks about NRI, you'll know exactly what to say. And more importantly, you'll know *why* they're asking. AUC tells you if your model can rank patients. NRI and IDI tell you if it changes what the doctor does. In clinical AI, the second question is the only one that matters.
+
+---
+
+## Deep Learning for Medical Imaging — Full Series
+
+1. [The DL Engineer's Field Guide to 3D Medical Imaging](/posts/dl-medical-imaging-intro)
+2. [Reconstructing Reality: OSEM and the Math of PET Imaging](/posts/osem-reconstruction)
+3. [GANs in the Hospital: Conditional Adversarial Networks for SPECT](/posts/conditional-gan-medical)
+4. [Diffusion Models Meet Medical Reconstruction](/posts/diffusion-medical-recon)
+5. **Medical AI Validation: Beyond AUC**
