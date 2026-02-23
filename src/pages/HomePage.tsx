@@ -45,7 +45,7 @@ export default function HomePage() {
             <span className="text-slate-300">, PhD</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed">
-            Hardware-aware AI researcher building frontier deep learning systems —
+            Hardware-aware AI engineer building frontier deep learning systems —
             from scaling laws to production, across every layer of the stack.
           </p>
           <div className="flex flex-wrap gap-4">

@@ -55,8 +55,8 @@ export default function Sidebar() {
           <NavLink to="/" onClick={() => setIsOpen(false)} className="block">
             <h1 className="text-xl font-bold gradient-brand-text">Xingfu Yang</h1>
             <p className="text-xs text-slate-500 mt-1 font-mono tracking-wide leading-relaxed">
-              DS <span className="text-slate-600">|</span> MLE<br />
-              Researcher<span className="text-slate-600">/</span>Builder
+              DS <span className="text-slate-600">|</span> MLE <span className="text-slate-600">|</span> Tech Lead<br />
+              Builder<span className="text-slate-600">/</span>Researcher
             </p>
           </NavLink>
         </div>
