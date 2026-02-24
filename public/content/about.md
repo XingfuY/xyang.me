@@ -14,10 +14,10 @@ My mindset is *exploration vs. exploitation* — knowing when to invest in resea
 
 ## Research Interests
 
-- Production ML: scoring, ranking, personalization, fraud detection at scale
+- Production ML: Scoring, Ranking, Personalization, Fraud Detection at Scale
 - Deep Learning: Graph Neural Networks, Transformers, GenAI, Reinforcement Learning
-- LLM & Agentic AI: fine-tuning (LoRA, DPO, RLHF), RAG, evaluation frameworks
-- Large-scale training: JAX on TPU Research Cloud, distributed multi-device systems
+- LLM & Agentic AI: Fine-Tuning (LoRA, DPO, RLHF), RAG, Evaluation Frameworks
+- Large-Scale Training: JAX on TPU Research Cloud, Distributed Multi-Device Systems
 
 ## Education
 
