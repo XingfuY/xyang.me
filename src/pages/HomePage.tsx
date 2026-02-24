@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react'
-import { ArrowRight, Cpu, Brain, Network, Zap } from 'lucide-react'
+import { ArrowRight, Rocket, BarChart3, Brain, GraduationCap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import TechGlobe from '../components/TechGlobe.tsx'
 import { useSEO } from '../hooks/useSEO'
@@ -31,24 +31,24 @@ function useBreakpoint() {
 
 const highlights = [
   {
-    icon: Cpu,
-    title: 'Hardware-Aware AI',
-    description: 'CUDA, Triton, NCCL — developing solutions mindful of hardware characteristics and algorithm constraints.',
+    icon: Rocket,
+    title: 'Built from Zero — Twice',
+    description: 'Founding data scientist at two startups — designed pipelines, shipped production ML, and built the teams around them. From zero to revenue.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Production ML at Scale',
+    description: 'Scoring, ranking, fraud detection, and personalization on 40M+ entities and billions of records. A/B experimentation, evaluation frameworks, and models that ship.',
   },
   {
     icon: Brain,
-    title: 'JAX + Distributed Training',
-    description: 'Multi-device sharded pretraining of MoE foundation models with data and tensor parallelism on TPU/GPU clusters.',
+    title: 'Foundation Models from Scratch',
+    description: 'Trained a Mixture-of-Experts Transformer end-to-end on TPUs — pretraining, SFT, reward modeling, and RLHF alignment (PPO, DPO, GRPO).',
   },
   {
-    icon: Network,
-    title: 'Graph Neural Networks',
-    description: 'Scaling GNNs to 100M+ nodes and 1.6B edges via remote-backed GraphStore and FeatureStore.',
-  },
-  {
-    icon: Zap,
-    title: 'Full-Stack ML',
-    description: 'From scaling laws and RLHF to production serving — 6+ years shipping deep learning systems end-to-end.',
+    icon: GraduationCap,
+    title: 'Research Depth',
+    description: 'PhD in Computational Physics. Scaled GNNs to 1.6B edges. Advanced coursework from Stanford (CS336, CS236, CS224W) and Berkeley (CS182, CS285).',
   },
 ]
 
