@@ -61,13 +61,12 @@ export default function HomePage() {
 
         {/* Hero text */}
         <div className="max-w-xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 whitespace-nowrap">
             <span className="gradient-brand-text">Xingfu Yang</span>
             <span className="text-slate-300">, PhD</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed">
-            Hardware-aware AI engineer building frontier deep learning systems —
-            from scaling laws to production, across every layer of the stack.
+            Data scientist and ML engineer who builds from zero — production systems, foundation models, and the teams around them.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
