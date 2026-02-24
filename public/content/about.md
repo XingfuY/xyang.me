@@ -1,26 +1,27 @@
 # About
 
-I'm **Xingfu Yang**, a PhD-trained engineer who swapped particle simulations for 4D parallelism, bringing scientific rigor to the wild world of machine learning. Whether I'm slashing inference latency or building generative data engines, I love crafting systems that are as smart as they are scalable. My career sits at the intersection of frontier AI research and practical, scalable engineering. Let’s build the future—one optimized pipeline at a time. 
+I'm **Xingfu Yang** — a PhD data scientist and ML engineer who builds from zero. At two startups, I was the first data hire: I designed the pipelines, trained the models, shipped the systems, and built the teams around them. My career sits at the intersection of research depth and production pragmatism — I care about both *why* something works and whether it actually ships.
 
-My industry career spans two FinTech/AdTech startups where I owned the full ML lifecycle end-to-end. As **Chief Data Scientist at Lucid Intel**, I lead a team building core data products — lead acquisition, non-credit underwriting, and high-frequency fraud prevention — applying unsupervised and supervised deep learning across 40M+ identities and billions of records. I also co-created a new business division: an aggregated data analytics platform offering managed agency-of-record services. Earlier, as **Data Scientist at Leap Theory**, I developed, deployed, and maintained production ML/DL APIs for marketing, remarketing, and risk management — delivering a 55% reduction in unnecessary traffic and a 70% lift in accept ratios for lending clients.
+My industry career spans two FinTech/AdTech startups where I owned the full ML lifecycle end-to-end. As **Chief Data Scientist at Lucid Intel**, I built the data science function from scratch — lead scoring, fraud detection, and classification systems across 40M+ identities and billions of records. I also developed LLM-based agents and GenAI workflows in production. Earlier, as **Data Scientist at Leap Theory**, I designed, deployed, and maintained production ML systems for scoring, marketing optimization, and risk management — delivering a 55% reduction in noise and a 70% lift in accept ratios for lending clients.
+
+On my own time, I trained a foundation model from scratch — pretraining a Mixture-of-Experts Transformer on TPUs through full RLHF alignment — because I wanted to understand the internals, not just the API.
 
 ## Philosophy
 
-I believe the most impactful AI work happens when you understand the hardware as deeply as the algorithms. Whether it's composing parallelism strategies for training on supercomputers or optimizing CUDA kernels for inference, I operate across every layer of the stack.
+I believe the best data scientists are builders first. The most impactful work I've done wasn't the most technically complex — it was the system that answered a question no one had been able to answer before, built with whatever tools got the job done.
 
-My mindset is *exploration vs. exploitation* — knowing when to invest in research and when to ship. Six years of industrial experience have taught me that the best systems emerge from balancing theoretical rigor with pragmatic engineering.
+My mindset is *exploration vs. exploitation* — knowing when to invest in research and when to ship. Six years of startup experience have taught me that the best systems emerge from balancing scientific rigor with pragmatic engineering. And building from zero has taught me that the hardest part is never the model — it's defining what to measure.
 
 ## Research Interests
 
-- Deep Learning Frontier: Graph & Relational Learning, GenAI, Reinforcement Learning
-- Hardware-aware training: JAX on TPU Research Cloud, CUDA, Triton, NCCL
-- Scaling laws and parallelism strategies for large model training
-- Post-training: SFT, reward modeling, RLHF with PPO, DPO, and GRPO
+- Production ML: scoring, ranking, personalization, fraud detection at scale
+- Deep Learning: Graph Neural Networks, Transformers, GenAI, Reinforcement Learning
+- LLM & Agentic AI: fine-tuning (LoRA, DPO, RLHF), RAG, evaluation frameworks
+- Large-scale training: JAX on TPU Research Cloud, distributed multi-device systems
 
 ## Education
 
-**Colorado School of Mines**
-PhD in Chemical Engineering · GPA: 3.86/4.00
+**Colorado School of Mines** — PhD in Chemical Engineering (Computational Physics) · GPA: 3.86/4.00
 Thesis: *Out-of-equilibrium behavior of colloidal particles in AC electric fields*
 
 ## Coursework
@@ -30,5 +31,3 @@ Thesis: *Out-of-equilibrium behavior of colloidal particles in AC electric field
 - Deep Learning (Berkeley CS182)
 - Deep Reinforcement Learning (Berkeley CS285)
 - ML with Graphs (Stanford CS224W)
-- Intro to Computer Systems (CMU 15-213)
-- Concurrent & Distributed Systems (Cambridge)
