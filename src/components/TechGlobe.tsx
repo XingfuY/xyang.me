@@ -107,8 +107,13 @@ export default function TechGlobe() {
     const points = initPoints()
     let dpr = window.devicePixelRatio || 1
     let cachedRect = canvas.getBoundingClientRect()
+    const isDesktop = window.innerWidth >= 1024
+    const frameInterval = isDesktop ? 0 : 1000 / 30 // 60fps desktop, 30fps tablet
+    let lastFrameTime = 0
     // Pre-allocate projected points array — reuse objects each frame
     const projectedPoints: ProjectedPoint[] = points.map(() => ({ x: 0, y: 0, z: 0, text: '', scale: 1 }))
+    // Reusable temp point to avoid spread-operator allocations
+    const tmp: Point3D = { x: 0, y: 0, z: 0, text: '' }
 
     function resize() {
       cachedRect = canvas!.getBoundingClientRect()
@@ -118,17 +123,16 @@ export default function TechGlobe() {
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
-    function rotateY(p: Point3D, angle: number): Point3D {
-      const cos = Math.cos(angle), sin = Math.sin(angle)
-      return { ...p, x: p.x * cos - p.z * sin, z: p.x * sin + p.z * cos }
-    }
+    function draw(timestamp: number) {
+      // Throttle to 30fps on non-desktop
+      if (frameInterval > 0) {
+        if (timestamp - lastFrameTime < frameInterval) {
+          animId = requestAnimationFrame(draw)
+          return
+        }
+        lastFrameTime = timestamp
+      }
 
-    function rotateX(p: Point3D, angle: number): Point3D {
-      const cos = Math.cos(angle), sin = Math.sin(angle)
-      return { ...p, y: p.y * cos - p.z * sin, z: p.y * sin + p.z * cos }
-    }
-
-    function draw() {
       const w = cachedRect.width
       const h = cachedRect.height
       const cx = w / 2
@@ -137,12 +141,15 @@ export default function TechGlobe() {
 
       ctx!.clearRect(0, 0, w, h)
 
-      const grad = ctx!.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.2)
-      grad.addColorStop(0, 'rgba(233, 30, 99, 0.04)')
-      grad.addColorStop(0.5, 'rgba(21, 101, 192, 0.02)')
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)')
-      ctx!.fillStyle = grad
-      ctx!.fillRect(0, 0, w, h)
+      // Skip per-frame gradient on non-desktop — just clear
+      if (isDesktop) {
+        const grad = ctx!.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.2)
+        grad.addColorStop(0, 'rgba(233, 30, 99, 0.04)')
+        grad.addColorStop(0.5, 'rgba(21, 101, 192, 0.02)')
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)')
+        ctx!.fillStyle = grad
+        ctx!.fillRect(0, 0, w, h)
+      }
 
       ctx!.lineWidth = 0.5
 
@@ -182,15 +189,24 @@ export default function TechGlobe() {
         rot.ry += rot.autoRy * speedMul
       }
 
+      const cosRy = Math.cos(rot.ry), sinRy = Math.sin(rot.ry)
+      const cosRx = Math.cos(rot.rx), sinRx = Math.sin(rot.rx)
+
       for (let i = 0; i < points.length; i++) {
-        let rp = rotateY(points[i], rot.ry)
-        rp = rotateX(rp, rot.rx)
-        const scale = 1 / (1 - rp.z * 0.3)
+        const p = points[i]
+        // Inline rotateY
+        tmp.x = p.x * cosRy - p.z * sinRy
+        tmp.y = p.y
+        tmp.z = p.x * sinRy + p.z * cosRy
+        // Inline rotateX
+        const ty = tmp.y * cosRx - tmp.z * sinRx
+        const tz = tmp.y * sinRx + tmp.z * cosRx
+        const scale = 1 / (1 - tz * 0.3)
         const pp = projectedPoints[i]
-        pp.x = cx + rp.x * radius * scale
-        pp.y = cy + rp.y * radius * scale
-        pp.z = rp.z
-        pp.text = rp.text || points[i].text
+        pp.x = cx + tmp.x * radius * scale
+        pp.y = cy + ty * radius * scale
+        pp.z = tz
+        pp.text = p.text
         pp.scale = scale
       }
 
@@ -198,6 +214,8 @@ export default function TechGlobe() {
 
       ctx!.shadowBlur = 0
       ctx!.shadowColor = 'transparent'
+      ctx!.textAlign = 'center'
+      ctx!.textBaseline = 'middle'
 
       for (const p of projectedPoints) {
         const depth = (p.z + 1) / 2
@@ -222,26 +240,29 @@ export default function TechGlobe() {
 
         const weight = isVeryFront ? '700' : isFront ? '600' : '400'
         ctx!.font = `${weight} ${size}px "Inter", system-ui, sans-serif`
-        ctx!.textAlign = 'center'
-        ctx!.textBaseline = 'middle'
 
-        if (isVeryFront) {
-          ctx!.shadowColor = `rgba(233, 30, 99, 0.6)`
-          ctx!.shadowBlur = 12
-        } else if (isFront) {
-          ctx!.shadowColor = `rgba(233, 30, 99, 0.25)`
-          ctx!.shadowBlur = 6
-        } else {
-          ctx!.shadowBlur = 0
-          ctx!.shadowColor = 'transparent'
+        // Shadows only on desktop — very expensive on mobile GPU
+        if (isDesktop) {
+          if (isVeryFront) {
+            ctx!.shadowColor = `rgba(233, 30, 99, 0.6)`
+            ctx!.shadowBlur = 12
+          } else if (isFront) {
+            ctx!.shadowColor = `rgba(233, 30, 99, 0.25)`
+            ctx!.shadowBlur = 6
+          } else {
+            ctx!.shadowBlur = 0
+            ctx!.shadowColor = 'transparent'
+          }
         }
 
         ctx!.fillStyle = `rgba(${r}, ${g}, ${b2}, ${alpha})`
         ctx!.fillText(p.text, p.x, p.y)
 
         if (!isFront) {
-          ctx!.shadowBlur = 0
-          ctx!.shadowColor = 'transparent'
+          if (isDesktop) {
+            ctx!.shadowBlur = 0
+            ctx!.shadowColor = 'transparent'
+          }
           ctx!.beginPath()
           ctx!.arc(p.x, p.y, 1.2 * depth, 0, Math.PI * 2)
           ctx!.fillStyle = `rgba(${r}, ${g}, ${b2}, ${alpha * 0.4})`
@@ -249,8 +270,10 @@ export default function TechGlobe() {
         }
       }
 
-      ctx!.shadowBlur = 0
-      ctx!.shadowColor = 'transparent'
+      if (isDesktop) {
+        ctx!.shadowBlur = 0
+        ctx!.shadowColor = 'transparent'
+      }
 
       animId = requestAnimationFrame(draw)
     }
@@ -344,7 +367,7 @@ export default function TechGlobe() {
     }
 
     resize()
-    draw()
+    animId = requestAnimationFrame(draw)
 
     window.addEventListener('resize', resize)
     canvas.addEventListener('mousedown', onMouseDown)

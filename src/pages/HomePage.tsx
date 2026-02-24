@@ -4,17 +4,29 @@ import { Link } from 'react-router-dom'
 import TechGlobe from '../components/TechGlobe.tsx'
 import { useSEO } from '../hooks/useSEO'
 
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true
-  )
+function useBreakpoint() {
+  const [bp, setBp] = useState<'mobile' | 'tablet' | 'desktop'>(() => {
+    if (typeof window === 'undefined') return 'desktop'
+    if (window.innerWidth >= 1024) return 'desktop'
+    if (window.innerWidth >= 768) return 'tablet'
+    return 'mobile'
+  })
   useEffect(() => {
-    const mql = window.matchMedia('(min-width: 1024px)')
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
+    const mqDesktop = window.matchMedia('(min-width: 1024px)')
+    const mqTablet = window.matchMedia('(min-width: 768px)')
+    const update = () => {
+      if (mqDesktop.matches) setBp('desktop')
+      else if (mqTablet.matches) setBp('tablet')
+      else setBp('mobile')
+    }
+    mqDesktop.addEventListener('change', update)
+    mqTablet.addEventListener('change', update)
+    return () => {
+      mqDesktop.removeEventListener('change', update)
+      mqTablet.removeEventListener('change', update)
+    }
   }, [])
-  return isDesktop
+  return bp
 }
 
 const highlights = [
@@ -41,7 +53,9 @@ const highlights = [
 ]
 
 export default function HomePage() {
-  const isDesktop = useIsDesktop()
+  const bp = useBreakpoint()
+  const showGlobe = bp !== 'mobile'
+  const isDesktop = bp === 'desktop'
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -100,8 +114,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Globe — mobile only, below hero */}
-        {!isDesktop && (
+        {/* Globe — tablet only, below hero (skipped on mobile to prevent OOM) */}
+        {showGlobe && !isDesktop && (
           <div className="mt-12 mx-auto w-full max-w-[260px]">
             <p className="text-xs text-slate-500 text-center mb-1 uppercase tracking-widest">Stack</p>
             <div className="h-[240px]">

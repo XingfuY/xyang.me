@@ -8,6 +8,8 @@ import ScrollToTop from './components/ScrollToTop.tsx'
 import { useSettings } from './hooks/useSettings.ts'
 import HomePage from './pages/HomePage.tsx'
 
+const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768
+
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx'))
 const CVPage = lazy(() => import('./pages/CVPage.tsx'))
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage.tsx'))
@@ -27,7 +29,7 @@ export default function App() {
 
   return (
     <>
-      <MatrixBackground paused={rainPaused} lightMode={resolvedTheme === 'light'} />
+      {!IS_MOBILE && <MatrixBackground paused={rainPaused} lightMode={resolvedTheme === 'light'} />}
       <ControlPanel
         themeMode={themeMode}
         rainPaused={rainPaused}
