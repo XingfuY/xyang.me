@@ -106,13 +106,15 @@ export default function TechGlobe() {
     let animId: number
     const points = initPoints()
     let dpr = window.devicePixelRatio || 1
-    let projectedPoints: ProjectedPoint[] = []
+    let cachedRect = canvas.getBoundingClientRect()
+    // Pre-allocate projected points array — reuse objects each frame
+    const projectedPoints: ProjectedPoint[] = points.map(() => ({ x: 0, y: 0, z: 0, text: '', scale: 1 }))
 
     function resize() {
-      const rect = canvas!.getBoundingClientRect()
+      cachedRect = canvas!.getBoundingClientRect()
       dpr = window.devicePixelRatio || 1
-      canvas!.width = rect.width * dpr
-      canvas!.height = rect.height * dpr
+      canvas!.width = cachedRect.width * dpr
+      canvas!.height = cachedRect.height * dpr
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
@@ -127,9 +129,8 @@ export default function TechGlobe() {
     }
 
     function draw() {
-      const rect = canvas!.getBoundingClientRect()
-      const w = rect.width
-      const h = rect.height
+      const w = cachedRect.width
+      const h = cachedRect.height
       const cx = w / 2
       const cy = h / 2
       const radius = Math.min(w, h) * 0.38
@@ -181,18 +182,17 @@ export default function TechGlobe() {
         rot.ry += rot.autoRy * speedMul
       }
 
-      projectedPoints = points.map((p) => {
-        let rp = rotateY(p, rot.ry)
+      for (let i = 0; i < points.length; i++) {
+        let rp = rotateY(points[i], rot.ry)
         rp = rotateX(rp, rot.rx)
         const scale = 1 / (1 - rp.z * 0.3)
-        return {
-          x: cx + rp.x * radius * scale,
-          y: cy + rp.y * radius * scale,
-          z: rp.z,
-          text: rp.text || p.text,
-          scale,
-        }
-      })
+        const pp = projectedPoints[i]
+        pp.x = cx + rp.x * radius * scale
+        pp.y = cy + rp.y * radius * scale
+        pp.z = rp.z
+        pp.text = rp.text || points[i].text
+        pp.scale = scale
+      }
 
       projectedPoints.sort((a, b) => a.z - b.z)
 
@@ -261,8 +261,7 @@ export default function TechGlobe() {
     }
 
     function onMouseMove(e: MouseEvent) {
-      const rect = canvas!.getBoundingClientRect()
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top, active: true }
+      mouseRef.current = { x: e.clientX - cachedRect.left, y: e.clientY - cachedRect.top, active: true }
       if (dragRef.current.dragging) {
         const dx = e.clientX - dragRef.current.lastX
         const dy = e.clientY - dragRef.current.lastY
@@ -279,9 +278,8 @@ export default function TechGlobe() {
       const wasDrag = Math.sqrt(dx * dx + dy * dy) > 5
 
       if (!wasDrag) {
-        const rect = canvas!.getBoundingClientRect()
-        const clickX = e.clientX - rect.left
-        const clickY = e.clientY - rect.top
+        const clickX = e.clientX - cachedRect.left
+        const clickY = e.clientY - cachedRect.top
 
         for (let i = projectedPoints.length - 1; i >= 0; i--) {
           const p = projectedPoints[i]
@@ -327,9 +325,8 @@ export default function TechGlobe() {
       const wasDrag = Math.sqrt(dx * dx + dy * dy) > 5
 
       if (!wasDrag) {
-        const rect = canvas!.getBoundingClientRect()
-        const tapX = t.clientX - rect.left
-        const tapY = t.clientY - rect.top
+        const tapX = t.clientX - cachedRect.left
+        const tapY = t.clientY - cachedRect.top
 
         for (let i = projectedPoints.length - 1; i >= 0; i--) {
           const p = projectedPoints[i]

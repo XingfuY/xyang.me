@@ -1,8 +1,21 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { ArrowRight, Cpu, Brain, Network, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import TechGlobe from '../components/TechGlobe.tsx'
 import { useSEO } from '../hooks/useSEO'
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true
+  )
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1024px)')
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
+  }, [])
+  return isDesktop
+}
 
 const highlights = [
   {
@@ -28,6 +41,7 @@ const highlights = [
 ]
 
 export default function HomePage() {
+  const isDesktop = useIsDesktop()
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -51,13 +65,15 @@ export default function HomePage() {
     <div className="animate-fade-in">
       {/* Hero section with globe positioned top-right */}
       <section className="min-h-screen relative py-12 flex flex-col justify-center">
-        {/* Globe — absolute top-right on desktop, inline on mobile */}
-        <div className="hidden lg:block absolute top-8 right-0 w-[280px]">
-          <p className="text-xs text-slate-500 text-center mb-1 uppercase tracking-widest">Stack</p>
-          <div className="h-[280px]">
-            <TechGlobe />
+        {/* Globe — absolute top-right on desktop only */}
+        {isDesktop && (
+          <div className="absolute top-8 right-0 w-[280px]">
+            <p className="text-xs text-slate-500 text-center mb-1 uppercase tracking-widest">Stack</p>
+            <div className="h-[280px]">
+              <TechGlobe />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Hero text */}
         <div className="max-w-xl">
@@ -85,12 +101,14 @@ export default function HomePage() {
         </div>
 
         {/* Globe — mobile only, below hero */}
-        <div className="lg:hidden mt-12 mx-auto w-full max-w-[260px]">
-          <p className="text-xs text-slate-500 text-center mb-1 uppercase tracking-widest">Stack</p>
-          <div className="h-[240px]">
-            <TechGlobe />
+        {!isDesktop && (
+          <div className="mt-12 mx-auto w-full max-w-[260px]">
+            <p className="text-xs text-slate-500 text-center mb-1 uppercase tracking-widest">Stack</p>
+            <div className="h-[240px]">
+              <TechGlobe />
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Highlights */}

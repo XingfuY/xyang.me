@@ -33,6 +33,12 @@ export default function MatrixBackground({ paused = false, lightMode = false }: 
     const canvas = canvasRef.current
     if (!canvas) return
 
+    // Skip animation entirely on mobile — it's barely visible and causes OOM
+    if (window.innerWidth < 768) {
+      canvas.style.display = 'none'
+      return
+    }
+
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
@@ -40,6 +46,7 @@ export default function MatrixBackground({ paused = false, lightMode = false }: 
 
     const chars = '01アイウエオカキクケコ∑∏∫∂√∞≈≠±∈∉⊂⊃∪∩'
     const fontSize = 14
+    const fontStr = `${fontSize}px "JetBrains Mono", monospace`
     const mouseRadius = 150
 
     function resize() {
@@ -67,6 +74,7 @@ export default function MatrixBackground({ paused = false, lightMode = false }: 
       const fadeColor = isLight ? 'rgba(248, 250, 252, 0.05)' : 'rgba(10, 22, 40, 0.05)'
       ctx!.fillStyle = fadeColor
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
+      ctx!.font = fontStr
 
       const mx = mouseRef.current.x
       const my = mouseRef.current.y
@@ -102,11 +110,9 @@ export default function MatrixBackground({ paused = false, lightMode = false }: 
           const offsetY = Math.sin(angle) * pushStrength * fontSize
 
           ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
-          ctx!.font = `${fontSize}px "JetBrains Mono", monospace`
           ctx!.fillText(char, x + offsetX, y + offsetY)
         } else {
           ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
-          ctx!.font = `${fontSize}px "JetBrains Mono", monospace`
           ctx!.fillText(char, x, y)
         }
 
