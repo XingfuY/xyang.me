@@ -172,10 +172,9 @@ export default function CVPage() {
             <section>
               <h2 className="text-2xl font-bold border-b border-navy-lighter pb-2 mb-4">Highlights</h2>
               <ul className="space-y-3 text-slate-300">
-                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span>Accomplished Founding Data Scientist with extensive startup experience, spearheading development of innovative data products from ideation to scalable profitable businesses.</li>
-                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span>Hardware-aware AI Researcher with a solid track record of developing innovative solutions and conducting open-ended research, mindful of hardware characteristics and algorithm constraints.</li>
-                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span>Abreast of latest algorithmic advances, experienced in refining scaling laws and composing different parallelism strategies when training massive datasets on supercomputers.</li>
-                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span>Proficient in high-level system design to hands-on development of quality distributed deep learning systems with 6+ years of industrial experience.</li>
+                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span><strong>Founding Data Scientist</strong> who builds from zero — production systems, experimentation frameworks, evaluation pipelines, and the teams around them. Built data science from scratch at two startups, turning ambiguous problems into measurable outcomes.</li>
+                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span>PhD-trained <strong>applied scientist</strong>: scoring, ranking, classification, fraud detection, personalization, and GenAI at scale (40M+ entities, billions of records). Full ML lifecycle from research to production monitoring.</li>
+                <li className="flex gap-2"><span className="text-crimson mt-1">&#x2022;</span><strong>Research depth meets production pragmatism</strong>: trained a foundation model from scratch on TPUs, scaled GNNs to 1.6B edges, completed advanced coursework from Stanford and Berkeley. 6 years balancing scientific rigor with building systems that ship.</li>
               </ul>
             </section>
 
@@ -188,13 +187,14 @@ export default function CVPage() {
                   <span className="text-sm text-slate-400">Santa Monica, CA</span>
                 </div>
                 <div className="flex justify-between items-baseline flex-wrap gap-2">
-                  <p className="text-sm text-crimson">Chief Data Scientist</p>
-                  <span className="text-sm text-slate-500">Jun 2023 — Present</span>
+                  <p className="text-sm text-crimson italic">Chief Data Scientist</p>
+                  <span className="text-sm text-slate-500">Jun 2023 — Feb 2026</span>
                 </div>
                 <ul className="mt-3 space-y-2 text-sm text-slate-300">
-                  <li>&#x2022; Leading team developing core data products: lead acquisition, non-credit underwriting, and high-frequency fraud prevention on 40M identities and billions of records.</li>
-                  <li>&#x2022; Spearheading AutoML-based platform to accommodate various client demands through project scoping, customized modeling and continuous iteration.</li>
-                  <li>&#x2022; Co-created a new business division — an advanced aggregated data analytics platform offering managed agency of record services.</li>
+                  <li>&#x2022; Built the data science function from zero: defined metrics, designed pipelines, built evaluation frameworks, and delivered actionable insights that shaped product roadmap and business strategy.</li>
+                  <li>&#x2022; Designed, trained, and deployed scoring, classification, and fraud detection models on 40M+ identities and billions of records — supervised and unsupervised deep learning with rigorous evaluation and production monitoring.</li>
+                  <li>&#x2022; Led A/B experimentation programs: designed controlled experiments, conducted causal analysis, and translated complex results into clear, data-driven recommendations for cross-functional teams.</li>
+                  <li>&#x2022; Built LLM-based production systems — agentic workflows, RAG pipelines, and generative applications. Developed evaluation benchmarks to measure quality and identify failure modes.</li>
                 </ul>
               </div>
 
@@ -204,12 +204,12 @@ export default function CVPage() {
                   <span className="text-sm text-slate-400">Los Angeles, CA</span>
                 </div>
                 <div className="flex justify-between items-baseline flex-wrap gap-2">
-                  <p className="text-sm text-crimson">Data Scientist</p>
+                  <p className="text-sm text-crimson italic">Data Scientist</p>
                   <span className="text-sm text-slate-500">Oct 2019 — Jun 2023</span>
                 </div>
                 <ul className="mt-3 space-y-2 text-sm text-slate-300">
-                  <li>&#x2022; Orchestrated non-credit transformer-based aggregated models for InsightEngine to serve key lending underwriting metrics in production.</li>
-                  <li>&#x2022; Achieved a 55% reduction in unnecessary traffic, a 70% increase in accept ratio, and a 2-10pp decrease in first payment default.</li>
+                  <li>&#x2022; Built production ML systems from scratch: scoring, classification, and recommendation models with tiered caching for high-throughput, low-latency serving.</li>
+                  <li>&#x2022; Achieved a 55% reduction in noise, 70% increase in accept ratio, and 2–10 pp improvement in first-payment default through rigorous feature engineering and model iteration.</li>
                 </ul>
               </div>
             </section>
@@ -218,17 +218,17 @@ export default function CVPage() {
               <h2 className="text-2xl font-bold border-b border-navy-lighter pb-2 mb-4">Independent Projects</h2>
 
               <div className="mb-4">
-                <h3 className="font-semibold">MiniLM: Minimal JAX incarnation of full life cycle modern LM from scratch</h3>
+                <h3 className="font-semibold">MiniLM: Foundation Model from Scratch (JAX / Google TPU Research Cloud)</h3>
                 <ul className="mt-2 space-y-1 text-sm text-slate-300">
-                  <li>&#x2022; TPU Research Cloud Project: multi-device sharded pretraining of a Mixture-of-Experts foundation model using OpenWebText with data and tensor parallelism.</li>
-                  <li>&#x2022; Post-training: SFT, reward modeling, followed by RLHF with PPO, DPO, and GRPO.</li>
+                  <li>&#x2022; Multi-device sharded pretraining of a Mixture-of-Experts foundation model using the OpenWebText dataset with data and tensor parallelism.</li>
+                  <li>&#x2022; Post-training: supervised fine-tuning, reward modeling, and RLHF alignment via PPO, DPO, and GRPO.</li>
                 </ul>
               </div>
 
               <div className="mb-4">
-                <h3 className="font-semibold">RelationalLearning: Scaling up GNNs with GraphStore and FeatureStore via Remote Backends</h3>
+                <h3 className="font-semibold">Scaling GNNs to Billion-Edge Graphs (PyTorch / PyG)</h3>
                 <ul className="mt-2 space-y-1 text-sm text-slate-300">
-                  <li>&#x2022; Trained a GraphSAGE model on a 100 million nodes and 1.6 billion edges graph DB backing dataset.</li>
+                  <li>&#x2022; Trained GraphSAGE on a 100 million node, 1.6 billion edge graph — scalable representation learning and pattern discovery on large-scale relational data.</li>
                 </ul>
               </div>
             </section>
@@ -236,11 +236,34 @@ export default function CVPage() {
             <section>
               <h2 className="text-2xl font-bold border-b border-navy-lighter pb-2 mb-4">Expertise</h2>
               <div className="space-y-3 text-sm">
-                <div><strong className="text-slate-200">ML Frameworks:</strong> <span className="text-slate-400">JAX, TensorFlow, PyTorch [Geometric], Triton, Keras, XGBoost, Scikit-Learn, AutoGluon</span></div>
-                <div><strong className="text-slate-200">C/C++ Stack:</strong> <span className="text-slate-400">CUDA, NCCL, MPI, OpenMP, libuv, Boost, gRPC, protobuf, MySQL, Hiredis</span></div>
-                <div><strong className="text-slate-200">Python Libs:</strong> <span className="text-slate-400">FastAPI, Django, Flask, Gunicorn, SQLAlchemy, NumPy, Numba, Dask, Pandas</span></div>
-                <div><strong className="text-slate-200">Orchestration:</strong> <span className="text-slate-400">Kubernetes, Ray, Slurm, Kubeflow, Airflow, Docker, TFX, Prometheus, Grafana</span></div>
-                <div><strong className="text-slate-200">Cloud:</strong> <span className="text-slate-400">GKE Architect, AWS SA Associate</span></div>
+                <div><strong className="text-slate-200">Applied ML:</strong> <span className="text-slate-400">Scoring, Ranking, Classification, Fraud Detection, Personalization, A/B Testing, Causal Inference, Evaluation Frameworks</span></div>
+                <div><strong className="text-slate-200">ML Frameworks:</strong> <span className="text-slate-400">PyTorch, TensorFlow, JAX/FLAX, Triton, Keras, XGBoost, Scikit-Learn, AutoGluon, HuggingFace</span></div>
+                <div><strong className="text-slate-200">GenAI & LLMs:</strong> <span className="text-slate-400">Transformers, RLHF (PPO, DPO, GRPO), RAG, Agentic AI, LangChain, LangGraph, Fine-Tuning (LoRA)</span></div>
+                <div><strong className="text-slate-200">Languages:</strong> <span className="text-slate-400">Python (7+ yrs), SQL (7+ yrs), C/C++ (CUDA, MPI, OpenMP), R, Bash</span></div>
+                <div><strong className="text-slate-200">Python Stack:</strong> <span className="text-slate-400">FastAPI, Django, Flask, Gunicorn, SQLAlchemy, NumPy, Numba, Dask, Pandas, Matplotlib, Seaborn</span></div>
+                <div><strong className="text-slate-200">Orchestration:</strong> <span className="text-slate-400">Kubernetes, Ray, Slurm, Kubeflow, Airflow, Docker, TFX, TensorFlow Serving, Prometheus, Grafana</span></div>
+                <div><strong className="text-slate-200">Cloud:</strong> <span className="text-slate-400">AWS Solutions Architect Associate, GCP (GKE, TPU Research Cloud, BigQuery, Vertex AI)</span></div>
+                <div><strong className="text-slate-200">Coursework:</strong> <span className="text-slate-400">Language Modeling from Scratch (Stanford CS336), Deep Generative Models (Stanford CS236), Deep Learning (Berkeley CS182), Deep Reinforcement Learning (Berkeley CS285), ML with Graphs (Stanford CS224W)</span></div>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold border-b border-navy-lighter pb-2 mb-4">Research Experience</h2>
+
+              <div className="mb-6">
+                <div className="flex justify-between items-baseline flex-wrap gap-2">
+                  <h3 className="text-lg font-semibold">Research Assistant, Colorado School of Mines</h3>
+                  <span className="text-sm text-slate-400">Golden, CO</span>
+                </div>
+                <div className="flex justify-between items-baseline flex-wrap gap-2">
+                  <p className="text-sm text-crimson italic">PhD in Chemical Engineering (Computational Physics); GPA: 3.86/4.00</p>
+                  <span className="text-sm text-slate-500">Aug 2013 — Aug 2019</span>
+                </div>
+                <ul className="mt-3 space-y-2 text-sm text-slate-300">
+                  <li>&#x2022; Developed numerical simulation of patterning of non-spherical colloids under electric fields. Published in <em>Physical Review Letters</em>.</li>
+                  <li>&#x2022; Teamed with collaborators to design an O(N<sub>b</sub> log N<sub>b</sub>) framework to model a large number of colloids.</li>
+                  <li>&#x2022; Simulated in- and out-of-equilibrium behaviors of particles in a high-performance computing cluster.</li>
+                </ul>
               </div>
             </section>
           </div>
