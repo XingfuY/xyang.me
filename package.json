@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:content && tsc -b && vite build",
+    "build": "npm run build:content && tsc -b && vite build && node scripts/generate-spa-routes.mjs",
     "build:content": "node scripts/build-content-manifest.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
